@@ -1,4 +1,5 @@
 import React from 'react';
+import {ApolloProvider} from '@apollo/react-hooks';
 import {SearchController} from '../search-controller/search-controller';
 import styled from 'styled-components';
 
@@ -13,8 +14,10 @@ const Container = styled.div`
 
 export const App: React.FC = () => {
   return (
-    <Container>
-      <SearchController />
-    </Container>
+    <ApolloProvider client={client}>
+      <Container>
+        <SearchController />
+      </Container>
+    </ApolloProvider>
   );
 };
