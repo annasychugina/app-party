@@ -1,17 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Input} from '../input/input';
-import { useDebounce } from "../../hooks/useDebounce";
-import { DEBOUNCE_DELAY } from "../../constants";
+import React, {useEffect, useState} from 'react';
+import {useDebounce} from '../../hooks/useDebounce';
+import {DEBOUNCE_DELAY} from '../../constants';
+import {SearchView} from '../search-view/search-view';
 
 interface Props {}
 
 export const SearchController: React.FC<Props> = () => {
-  const [searchTerm, setSearchTerm] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY);
 
   useEffect(() => {
     if (debouncedSearchTerm !== null) {
-      console.log(debouncedSearchTerm)
+      console.log(debouncedSearchTerm);
     }
   }, [debouncedSearchTerm]);
 
@@ -19,10 +19,5 @@ export const SearchController: React.FC<Props> = () => {
     setSearchTerm(value);
   };
 
-  return (
-    <Input
-      onChange={handleChange}
-      value={searchTerm}
-    />
-  );
+  return <SearchView searchTerm={searchTerm} onChange={handleChange} />;
 };

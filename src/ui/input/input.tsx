@@ -1,24 +1,34 @@
-import React, {useCallback, useRef, useEffect, useState} from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import resources from './config.json';
+import React, {useCallback, useRef, useEffect} from 'react';
+import styled from 'styled-components';
 import {IFieldInputCallback} from '../../types/types';
 
 interface IProps {
   onChange: IFieldInputCallback;
-  value?: string | null;
+  value: string;
 }
 
+const InputWrapper = styled.input`
+  border: 1px solid #a0a0a0;
+  width: 100%;
+  line-height: 35px;
+  padding-top: 22px;
+  padding-right: 27px;
+  padding-bottom: 25px;
+  padding-left: 27px;
+  margin-bottom: 30px;
+  font-weight: 300;
+  font-size: 30px;
+  color: #000000;
+`;
+
 export const Input: React.FC<IProps> = ({onChange, value}) => {
-  const inputRef = useRef<HTMLLabelElement>(null);
-  const inputLabel = React.useRef<HTMLLabelElement>(null);
-  const [labelWidth, setLabelWidth] = useState(0);
+  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
-    inputRef.current!.focus();
-    setLabelWidth(inputLabel.current!.offsetWidth);
-  }, []);
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [inputRef]);
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<{name?: string; value: string}>): void => {
@@ -27,12 +37,5 @@ export const Input: React.FC<IProps> = ({onChange, value}) => {
     [onChange],
   );
 
-  return (
-    <FormControl variant="outlined">
-      <InputLabel ref={inputRef} htmlFor="component-outlined">
-        {resources.Input.labelText}
-      </InputLabel>
-      <OutlinedInput id="component-outlined" value={value} onChange={handleChange} labelWidth={labelWidth} />
-    </FormControl>
-  );
+  return <InputWrapper ref={inputRef} value={value} onChange={handleChange} />;
 };

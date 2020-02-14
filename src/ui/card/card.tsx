@@ -1,15 +1,15 @@
 import React from 'react';
-import {CardWrapper} from './card.styles';
+import {CardImage, CloseButton} from './card.styles';
 
 interface IProps {
-  imageUrl?: string | null
+  imageUrl?: string | null;
+  onClick: any;
 }
 
-export const Card: React.FC<IProps> = ({imageUrl}) => {
-
+export const Card: React.FC<IProps> = ({imageUrl, onClick}) => {
   return (
-    <CardWrapper imageUrl={imageUrl}>
-
-    </CardWrapper>
+    <CardImage role="button" imageUrl={imageUrl} onClick={onClick}>
+      <CloseButton type="button" />
+    </CardImage>
   );
 };
