@@ -2,6 +2,7 @@ import React from 'react';
 import {ApolloProvider} from '@apollo/react-hooks';
 import {SearchController} from '../search-controller/search-controller';
 import styled from 'styled-components';
+import {apolloClient} from '../../client';
 
 const Container = styled.div`
   padding-left: 10px;
@@ -14,7 +15,7 @@ const Container = styled.div`
 
 export const App: React.FC = () => {
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <Container>
         <SearchController />
       </Container>

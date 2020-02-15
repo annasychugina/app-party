@@ -3,12 +3,17 @@ import styled from 'styled-components';
 import {Preloader} from '../preloader/preloader';
 import mockCharacters from './mockData.json';
 import {Card} from '../card/card';
-import {ICharacter} from '../../types/types';
 import {Input} from '../input/input';
+import { useQuery } from '@apollo/react-hooks';
+import {GET_CHARACTERS} from '../../client/apolloQueries';
+import resources from './config.json';
+import {Character, Characters, FilterCharacter, QueryCharactersArgs} from '../../types/graphql';
+import {ICharacter} from '../../types/types';
 
 interface IProps {
   isLoading?: boolean;
   searchTerm: string;
+  debouncedSearchTerm: string;
   onChange: (value: string) => void;
 }
 
@@ -33,22 +38,51 @@ const Wrapper = styled.div`
   margin-top: 141px;
 `;
 
-export const SearchView: React.FC<IProps> = ({isLoading = false, onChange, searchTerm}: IProps) => {
+const ErrorText = styled.div`
+ color: #ff0000;
+ text-align: center;
+`;
+
+
+export interface ICharactersData {
+  results: ICharacter[] | null;
+}
+
+export interface ICharactersQuery {
+  characters: ICharactersData | null;
+}
+
+
+export const SearchView: React.FC<IProps> = ({debouncedSearchTerm, isLoading = false, onChange, searchTerm}: IProps) => {
+  const { data, loading, error } = useQuery<
+    ICharactersQuery,
+    QueryCharactersArgs
+    >(GET_CHARACTERS, {
+    variables: {
+      filter: {
+        name: debouncedSearchTerm,
+      },
+    },
+  });
+
   const handleCardClick = () => {};
-  if (isLoading) {
+
+  if (loading) {
     return <Preloader />;
   }
 
+  if (error) {
+    return <ErrorText>{resources.errorText}</ErrorText>
+  }
+
+  const characters = data?.characters?.results;
   return (
-    <Wrapper>
-      <Input onChange={onChange} value={searchTerm} />
       <Grid>
-        {mockCharacters.map(({id, image}: ICharacter) => (
+        {characters?.map(({id, image}) => (
           <Column key={id}>
             <Card imageUrl={image} onClick={handleCardClick} />
           </Column>
         ))}
       </Grid>
-    </Wrapper>
   );
 };
