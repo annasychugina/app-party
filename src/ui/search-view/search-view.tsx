@@ -1,9 +1,9 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import styled from 'styled-components';
 import {Preloader} from '../preloader/preloader';
 import {Card} from '../card/card';
-import {useQuery} from '@apollo/react-hooks';
-import {GET_CHARACTERS} from '../../client/apolloQueries';
+import {useMutation, useQuery} from '@apollo/react-hooks';
+import {GET_CHARACTERS, UPDATE_PARTY_CHARACTER} from '../../client/apolloQueries';
 import resources from './config.json';
 import {QueryCharactersArgs} from '../../types/graphql';
 import {ICharacter} from '../../types/types';
@@ -61,10 +61,22 @@ export const SearchView: React.FC<IProps> = ({debouncedSearchTerm, onRemoveChara
     },
   });
 
+  const [updatePartyCharacter] = useMutation(UPDATE_PARTY_CHARACTER);
   const characters = data?.characters?.results;
   const filteredCharacters = useMemo(
     () => characters && characters.filter(({id}: ICharacter) => removedCharacters.indexOf(id) === -1),
     [characters, removedCharacters],
+  );
+
+  const handleClick = useCallback(
+    (character: ICharacter) => {
+      updatePartyCharacter({
+        variables: {
+          character,
+        },
+      });
+    },
+    [updatePartyCharacter],
   );
 
   if (loading) {
@@ -81,9 +93,16 @@ export const SearchView: React.FC<IProps> = ({debouncedSearchTerm, onRemoveChara
 
   return (
     <Grid>
-      {filteredCharacters?.map(({id, image}) => (
+      {filteredCharacters?.map(({id, image, name}) => (
         <Column key={id}>
-          <Card imageUrl={image} onRemoveCharacter={() => onRemoveCharacter(id)} />
+          <Card
+            imageUrl={image}
+            onRemoveCharacter={(e: React.SyntheticEvent) => {
+              e.stopPropagation();
+              onRemoveCharacter(id);
+            }}
+            onClick={() => handleClick({id, image, name})}
+          />
         </Column>
       ))}
     </Grid>

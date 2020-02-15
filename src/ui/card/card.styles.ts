@@ -35,4 +35,5 @@ export const CardText = styled.p`
   font-size: 24px;
   line-height: 28px;
   text-transform: uppercase;
+  margin-bottom: 14px;
 `;

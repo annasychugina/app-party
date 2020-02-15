@@ -11,3 +11,10 @@ export interface ICharacter {
 export interface ICharacters {
   results: Array<ICharacter> | null;
 }
+
+export interface IPartyQuery {
+  party: {
+    rick: ICharacter;
+    morty: ICharacter;
+  };
+}

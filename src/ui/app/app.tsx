@@ -2,7 +2,7 @@ import React from 'react';
 import {ApolloProvider} from '@apollo/react-hooks';
 import {SearchPanel} from '../search-panel/search-panel';
 import styled from 'styled-components';
-import {apolloClient} from '../../client';
+import {createClient} from '../../client';
 import {Party} from '../party/party';
 
 const Container = styled.div`
@@ -13,6 +13,8 @@ const Container = styled.div`
   width: 100%;
   max-width: 810px;
 `;
+
+const apolloClient = createClient();
 
 export const App: React.FC = () => {
   return (

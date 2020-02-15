@@ -28,3 +28,9 @@ export const GET_PARTY_STATE = gql`
     }
   }
 `;
+
+export const UPDATE_PARTY_CHARACTER = gql`
+  mutation updatePartyCharacter($character: SetPerson) {
+    updatePartyCharacter(character: $character) @client
+  }
+`;

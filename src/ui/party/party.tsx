@@ -4,15 +4,8 @@ import resources from './config.json';
 import {Card} from '../card/card';
 import {useQuery} from '@apollo/react-hooks';
 import {GET_PARTY_STATE} from '../../client/apolloQueries';
-import {ICharacter} from '../../types/types';
+import {IPartyQuery} from '../../types/types';
 interface IProps {}
-
-interface IPartyQuery {
-  party: {
-    rick: ICharacter;
-    morty: ICharacter;
-  };
-}
 
 export const Party: React.FC<IProps> = () => {
   const {data} = useQuery<IPartyQuery, any>(GET_PARTY_STATE);
