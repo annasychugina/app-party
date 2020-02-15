@@ -1,6 +1,6 @@
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-hooks';
-import {SearchController} from '../search-controller/search-controller';
+import {SearchPanel} from '../search-panel/search-panel';
 import styled from 'styled-components';
 import {apolloClient} from '../../client';
 
@@ -17,7 +17,7 @@ export const App: React.FC = () => {
   return (
     <ApolloProvider client={apolloClient}>
       <Container>
-        <SearchController />
+        <SearchPanel />
       </Container>
     </ApolloProvider>
   );

@@ -1,5 +1,4 @@
-import styled, {keyframes} from "styled-components";
-
+import styled, {keyframes} from 'styled-components';
 
 const spinnerRotate = keyframes`
   0% {
@@ -15,7 +14,6 @@ const spinnerRotate = keyframes`
   }
 `;
 
-
 const spinnerOffset = keyframes`
   0%,
   100% {
@@ -27,16 +25,15 @@ const spinnerOffset = keyframes`
   }
 `;
 
-
-export const Circle = styled.svg`
+export const Circle = styled.circle`
   fill: none;
   stroke-dasharray: 280;
   stroke-dashoffset: 100;
   stroke-linecap: round;
   stroke-width: 5;
   animation: spinner-offset 3s linear infinite;
-  stroke: #DADADA;
-  animation: 3s ${spinnerOffset} linear infinite
+  stroke: #dadada;
+  animation: 3s ${spinnerOffset} linear infinite;
 `;
 
 export const Svg = styled.svg`

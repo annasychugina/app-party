@@ -3,13 +3,13 @@ import {CardImage, CloseButton} from './card.styles';
 
 interface IProps {
   imageUrl?: string | null;
-  onClick: any;
+  onRemoveCharacter: (e: React.SyntheticEvent) => void;
 }
 
-export const Card: React.FC<IProps> = ({imageUrl, onClick}) => {
+export const Card: React.FC<IProps> = ({imageUrl, onRemoveCharacter}) => {
   return (
-    <CardImage role="button" imageUrl={imageUrl} onClick={onClick}>
-      <CloseButton type="button" />
+    <CardImage role="button" imageUrl={imageUrl}>
+      <CloseButton type="button" onClick={onRemoveCharacter} />
     </CardImage>
   );
 };

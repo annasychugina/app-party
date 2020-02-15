@@ -1,13 +1,11 @@
-import React from 'react';
+import React, {useMemo, useState} from 'react';
 import styled from 'styled-components';
 import {Preloader} from '../preloader/preloader';
-import mockCharacters from './mockData.json';
 import {Card} from '../card/card';
-import {Input} from '../input/input';
-import { useQuery } from '@apollo/react-hooks';
+import {useQuery} from '@apollo/react-hooks';
 import {GET_CHARACTERS} from '../../client/apolloQueries';
 import resources from './config.json';
-import {Character, Characters, FilterCharacter, QueryCharactersArgs} from '../../types/graphql';
+import {Character, QueryCharactersArgs} from '../../types/graphql';
 import {ICharacter} from '../../types/types';
 
 interface IProps {
@@ -15,6 +13,8 @@ interface IProps {
   searchTerm: string;
   debouncedSearchTerm: string;
   onChange: (value: string) => void;
+  onRemoveCharacter: (id: string) => void;
+  removedCharacters: string[];
 }
 
 const Grid = styled.ul`
@@ -39,10 +39,14 @@ const Wrapper = styled.div`
 `;
 
 const ErrorText = styled.div`
- color: #ff0000;
- text-align: center;
+  color: #ff0000;
+  text-align: center;
 `;
 
+const WarningText = styled.div`
+  color: #dadada;
+  text-align: center;
+`;
 
 export interface ICharactersData {
   results: ICharacter[] | null;
@@ -52,12 +56,12 @@ export interface ICharactersQuery {
   characters: ICharactersData | null;
 }
 
-
-export const SearchView: React.FC<IProps> = ({debouncedSearchTerm, isLoading = false, onChange, searchTerm}: IProps) => {
-  const { data, loading, error } = useQuery<
-    ICharactersQuery,
-    QueryCharactersArgs
-    >(GET_CHARACTERS, {
+export const SearchView: React.FC<IProps> = ({
+  debouncedSearchTerm,
+  onRemoveCharacter,
+  removedCharacters
+}: IProps) => {
+  const {data, loading, error} = useQuery<ICharactersQuery, QueryCharactersArgs>(GET_CHARACTERS, {
     variables: {
       filter: {
         name: debouncedSearchTerm,
@@ -65,24 +69,31 @@ export const SearchView: React.FC<IProps> = ({debouncedSearchTerm, isLoading = f
     },
   });
 
-  const handleCardClick = () => {};
+  const characters = data?.characters?.results;
+  const filteredCharacters = useMemo(
+    () => characters && characters.filter(({id}: ICharacter) => removedCharacters.indexOf(id) === -1),
+    [characters, removedCharacters],
+  );
 
   if (loading) {
     return <Preloader />;
   }
 
   if (error) {
-    return <ErrorText>{resources.errorText}</ErrorText>
+    return <ErrorText>{resources.errorText}</ErrorText>;
   }
 
-  const characters = data?.characters?.results;
+  if (!filteredCharacters || filteredCharacters.length === 0) {
+    return <WarningText>{resources.warningText}</WarningText>;
+  }
+
   return (
-      <Grid>
-        {characters?.map(({id, image}) => (
-          <Column key={id}>
-            <Card imageUrl={image} onClick={handleCardClick} />
-          </Column>
-        ))}
-      </Grid>
+    <Grid>
+      {filteredCharacters?.map(({id, image}) => (
+        <Column key={id}>
+          <Card imageUrl={image} onRemoveCharacter={() => onRemoveCharacter(id)} />
+        </Column>
+      ))}
+    </Grid>
   );
 };

@@ -1,4 +1,4 @@
-import ApolloClient, { InMemoryCache } from 'apollo-boost';
+import ApolloClient, {InMemoryCache} from 'apollo-boost';
 import gql from 'graphql-tag';
 
 export const typeDefs = gql`
@@ -18,5 +18,5 @@ const cache = new InMemoryCache({});
 export const apolloClient = new ApolloClient({
   uri: RICK_MORTY_API,
   cache,
-  typeDefs
+  typeDefs,
 });
