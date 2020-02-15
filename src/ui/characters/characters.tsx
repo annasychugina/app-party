@@ -7,6 +7,7 @@ import {GET_CHARACTERS, UPDATE_PARTY_CHARACTER} from '../../client/apolloQueries
 import resources from './config.json';
 import {QueryCharactersArgs} from '../../types/graphql';
 import {ICharacter} from '../../types/types';
+import {Column, ErrorText, Grid, WarningText} from './characters.styles';
 
 interface IProps {
   isLoading?: boolean;
@@ -17,33 +18,6 @@ interface IProps {
   removedCharacters: string[];
 }
 
-const Grid = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-left: -10px;
-  margin-right: -10px;
-`;
-
-const Column = styled.li`
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 100%;
-  height: 220px;
-  margin-bottom: 30px;
-  max-width: 200px;
-`;
-
-const ErrorText = styled.div`
-  color: #ff0000;
-  text-align: center;
-`;
-
-const WarningText = styled.div`
-  color: #dadada;
-  text-align: center;
-`;
-
 export interface ICharactersData {
   results: ICharacter[] | null;
 }
@@ -52,7 +26,7 @@ export interface ICharactersQuery {
   characters: ICharactersData | null;
 }
 
-export const SearchView: React.FC<IProps> = ({debouncedSearchTerm, onRemoveCharacter, removedCharacters}: IProps) => {
+export const Characters: React.FC<IProps> = ({debouncedSearchTerm, onRemoveCharacter, removedCharacters}: IProps) => {
   const {data, loading, error} = useQuery<ICharactersQuery, QueryCharactersArgs>(GET_CHARACTERS, {
     variables: {
       filter: {

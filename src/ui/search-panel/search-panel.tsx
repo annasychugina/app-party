@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDebounce} from '../../hooks/useDebounce';
 import {DEBOUNCE_DELAY} from '../../constants';
-import {SearchView} from '../search-view/search-view';
+import {Characters} from '../characters/characters';
 import styled from 'styled-components';
 import {Input} from '../input/input';
 
@@ -30,7 +30,7 @@ export const SearchPanel: React.FC<Props> = () => {
     <Wrapper>
       <Input onChange={handleChange} value={searchTerm} />
       {debouncedSearchTerm && debouncedSearchTerm.length > MIN_SYMBOLS_COUNT && (
-        <SearchView
+        <Characters
           removedCharacters={removedIds}
           onRemoveCharacter={handleRemoveCharacter}
           searchTerm={searchTerm}

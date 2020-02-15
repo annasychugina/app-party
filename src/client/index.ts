@@ -13,41 +13,43 @@ export interface IState {
 export function createClient(): ApolloClient<NormalizedCacheObject> {
   const cache = new InMemoryCache({});
 
-  const clientState = {
-    data: {
-      party: {
-        __typename: 'Party',
-        rick: {
-          __typename: 'Character',
-          id: 'id1',
-          name: null,
-          image: null,
-        },
-        morty: {
-          __typename: 'Character',
-          id: 'id2',
-          name: null,
-          image: null,
-        },
-      },
-    },
-  };
-
-  cache.writeData(clientState);
-
   const getState = (query: any) => {
-    const data = cache.readQuery<IState>({query});
-    return data;
+    return cache.readQuery<IState>({query});
   };
 
   const writeState = (state: IState) => {
     return cache.writeData({data: state});
   };
 
+  const initState = () => {
+    const clientState = {
+      data: {
+        party: {
+          __typename: 'Party',
+          rick: {
+            __typename: 'Character',
+            id: 'id1',
+            name: null,
+            image: null,
+          },
+          morty: {
+            __typename: 'Character',
+            id: 'id2',
+            name: null,
+            image: null,
+          },
+        },
+      },
+    };
+
+    cache.writeData(clientState);
+  };
+
+  initState();
+
   return new ApolloClient({
     uri: RICK_MORTY_API,
     cache,
-    //@see https://www.apollographql.com/docs/tutorial/resolvers/
     resolvers: {
       Mutation: {
         updatePartyCharacter: (_, {character}: {character: ICharacter}, {cache}: {cache: any}) => {
@@ -58,6 +60,7 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
 
           writeState({
             party: {
+              __typename: 'Party',
               rick: rick ? {...character, __typename: 'Character'} : data?.party.rick,
               morty: morty
                 ? {
@@ -65,7 +68,6 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
                     __typename: 'Character',
                   }
                 : data?.party.morty,
-              __typename: 'Party',
             },
           });
 
