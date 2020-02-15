@@ -3,6 +3,7 @@ import {ApolloProvider} from '@apollo/react-hooks';
 import {SearchPanel} from '../search-panel/search-panel';
 import styled from 'styled-components';
 import {apolloClient} from '../../client';
+import {Party} from '../party/party';
 
 const Container = styled.div`
   padding-left: 10px;
@@ -18,6 +19,7 @@ export const App: React.FC = () => {
     <ApolloProvider client={apolloClient}>
       <Container>
         <SearchPanel />
+        <Party />
       </Container>
     </ApolloProvider>
   );

@@ -1,11 +1,11 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import styled from 'styled-components';
 import {Preloader} from '../preloader/preloader';
 import {Card} from '../card/card';
 import {useQuery} from '@apollo/react-hooks';
 import {GET_CHARACTERS} from '../../client/apolloQueries';
 import resources from './config.json';
-import {Character, QueryCharactersArgs} from '../../types/graphql';
+import {QueryCharactersArgs} from '../../types/graphql';
 import {ICharacter} from '../../types/types';
 
 interface IProps {
@@ -34,10 +34,6 @@ const Column = styled.li`
   max-width: 200px;
 `;
 
-const Wrapper = styled.div`
-  margin-top: 141px;
-`;
-
 const ErrorText = styled.div`
   color: #ff0000;
   text-align: center;
@@ -56,11 +52,7 @@ export interface ICharactersQuery {
   characters: ICharactersData | null;
 }
 
-export const SearchView: React.FC<IProps> = ({
-  debouncedSearchTerm,
-  onRemoveCharacter,
-  removedCharacters
-}: IProps) => {
+export const SearchView: React.FC<IProps> = ({debouncedSearchTerm, onRemoveCharacter, removedCharacters}: IProps) => {
   const {data, loading, error} = useQuery<ICharactersQuery, QueryCharactersArgs>(GET_CHARACTERS, {
     variables: {
       filter: {

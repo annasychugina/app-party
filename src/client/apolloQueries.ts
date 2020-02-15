@@ -11,3 +11,20 @@ export const GET_CHARACTERS = gql`
     }
   }
 `;
+
+export const GET_PARTY_STATE = gql`
+  query Party {
+    party @client {
+      rick {
+        id
+        name
+        image
+      }
+      morty {
+        id
+        name
+        image
+      }
+    }
+  }
+`;

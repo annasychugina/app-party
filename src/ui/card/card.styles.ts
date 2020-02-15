@@ -7,6 +7,9 @@ export const CardImage = styled.div`
   height: 100%;
   cursor: pointer;
   background-color: #dadada;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   ${({imageUrl}: {imageUrl?: string | null}) =>
     imageUrl &&
     `
@@ -23,4 +26,13 @@ export const CloseButton = styled.button`
   height: 30px;
   right: 8px;
   background-image: url(${closeImage});
+`;
+
+export const CardText = styled.p`
+  text-align: center;
+  color: #ffffff;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 28px;
+  text-transform: uppercase;
 `;
