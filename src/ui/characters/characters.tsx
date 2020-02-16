@@ -28,7 +28,6 @@ export interface ICharactersQuery {
 export const Characters: React.FC<IProps> = ({debouncedSearchTerm, onRemoveCharacter, removedCharacters}: IProps) => {
   const [getCharacters, {loading, data, error}] = useLazyQuery<ICharactersQuery, QueryCharactersArgs>(
     GET_CHARACTERS_QUERY,
-    {fetchPolicy: 'network-only'},
   );
   const [updatePartyCharacter] = useMutation(UPDATE_PARTY_CHARACTER);
   const characters = data?.characters?.results;
