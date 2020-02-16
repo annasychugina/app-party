@@ -31,7 +31,6 @@ export const Circle = styled.circle`
   stroke-dashoffset: 100;
   stroke-linecap: round;
   stroke-width: 5;
-  animation: spinner-offset 3s linear infinite;
   stroke: #dadada;
   animation: 3s ${spinnerOffset} linear infinite;
 `;
@@ -42,6 +41,5 @@ export const Svg = styled.svg`
   display: block;
   width: 80px;
   height: 80px;
-  animation: spinner-rotate 3s linear infinite;
   animation: 3s ${spinnerRotate} linear infinite;
 `;

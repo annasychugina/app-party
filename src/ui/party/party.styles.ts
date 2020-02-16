@@ -1,12 +1,15 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 export const PartyWrapper = styled.div`
-  max-width: 390px;
+  max-width: 400px;
   margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
 `;
 
 export const PartyTitle = styled.title`
+  @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+  /* stylelint-disable font-family-no-missing-generic-family-keyword */
+  font-family: Roboto;
   display: block;
   font-size: 30px;
   line-height: 35px;
@@ -23,9 +26,15 @@ export const CharactersContainer = styled.div`
 `;
 
 export const CardWrapper = styled.div`
-  padding-left: 10px;
-  padding-right: 10px;
   width: 100%;
   height: 220px;
   max-width: 200px;
+  ${({type}: {type: 'left' | 'right'}) =>
+    type === 'left'
+      ? css`
+          padding-right: 15px;
+        `
+      : css`
+          padding-left: 15px;
+        `}
 `;

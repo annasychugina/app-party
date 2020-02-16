@@ -1,9 +1,8 @@
 import React, {useCallback, useMemo} from 'react';
-import styled from 'styled-components';
 import {Preloader} from '../preloader/preloader';
 import {Card} from '../card/card';
 import {useMutation, useQuery} from '@apollo/react-hooks';
-import {GET_CHARACTERS, UPDATE_PARTY_CHARACTER} from '../../client/apolloQueries';
+import {GET_CHARACTERS_QUERY, UPDATE_PARTY_CHARACTER} from '../../client/apolloQueries';
 import resources from './config.json';
 import {QueryCharactersArgs} from '../../types/graphql';
 import {ICharacter} from '../../types/types';
@@ -27,7 +26,7 @@ export interface ICharactersQuery {
 }
 
 export const Characters: React.FC<IProps> = ({debouncedSearchTerm, onRemoveCharacter, removedCharacters}: IProps) => {
-  const {data, loading, error} = useQuery<ICharactersQuery, QueryCharactersArgs>(GET_CHARACTERS, {
+  const {data, loading, error} = useQuery<ICharactersQuery, QueryCharactersArgs>(GET_CHARACTERS_QUERY, {
     variables: {
       filter: {
         name: debouncedSearchTerm,

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const GET_CHARACTERS = gql`
+export const GET_CHARACTERS_QUERY = gql`
   query CharactersQuery($filter: FilterCharacter) {
     characters(filter: $filter) {
       results {
@@ -12,7 +12,7 @@ export const GET_CHARACTERS = gql`
   }
 `;
 
-export const GET_PARTY_STATE = gql`
+export const GET_PARTY_STATE_QUERY = gql`
   query Party {
     party @client {
       rick {

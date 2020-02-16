@@ -29,6 +29,9 @@ export const CloseButton = styled.button`
 `;
 
 export const CardText = styled.p`
+  @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+  /* stylelint-disable font-family-no-missing-generic-family-keyword */
+  font-family: Roboto;
   text-align: center;
   color: #ffffff;
   font-weight: 300;
