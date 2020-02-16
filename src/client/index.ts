@@ -66,12 +66,7 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
             party: {
               __typename: 'Party',
               rick: rick ? {...character, __typename: 'Character'} : data?.party.rick,
-              morty: morty
-                ? {
-                    ...character,
-                    __typename: 'Character',
-                  }
-                : data?.party.morty,
+              morty: morty ? {...character, __typename: 'Character'} : data?.party.morty,
             },
           });
 

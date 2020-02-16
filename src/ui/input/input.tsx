@@ -17,7 +17,7 @@ export const Input: React.FC<IProps> = ({onChange, value}) => {
   }, [inputRef]);
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<{name?: string; value: string}>): void => {
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       onChange(event.target.value);
     },
     [onChange],
