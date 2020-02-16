@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {App} from './app';
+import {App} from '../app';
 
 describe('App Component', () => {
   const div = document.createElement('div');

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Characters mutation should be called when click the button 1`] = `
+Object {
+  "data": Object {
+    "deleteCharacter": Object {
+      "id": "1",
+      "image": "image rick",
+      "name": "rick 123",
+    },
+  },
+}
+`;

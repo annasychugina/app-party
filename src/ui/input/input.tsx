@@ -23,5 +23,5 @@ export const Input: React.FC<IProps> = ({onChange, value}) => {
     [onChange],
   );
 
-  return <InputWrapper ref={inputRef} value={value} onChange={handleChange} />;
+  return <InputWrapper data-testid="input" ref={inputRef} value={value} onChange={handleChange} />;
 };

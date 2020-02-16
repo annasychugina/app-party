@@ -11,7 +11,7 @@ export const InputWrapper = styled.input`
   padding-right: 27px;
   padding-bottom: 25px;
   padding-left: 27px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-weight: 300;
   font-size: 30px;
   color: #000000;

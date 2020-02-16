@@ -9,11 +9,9 @@ export const Grid = styled.ul`
 `;
 
 export const Column = styled.li`
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 10px;
   width: 100%;
-  height: 220px;
-  margin-bottom: 30px;
+  height: 240px;
   max-width: 200px;
 `;
 

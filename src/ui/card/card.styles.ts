@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import closeImage from './icons/close.svg';
+import {CardType} from './card';
 
 export const CardImage = styled.div`
   position: relative;
@@ -10,12 +11,13 @@ export const CardImage = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  ${({imageUrl}: {imageUrl?: string | null}) =>
+  ${({imageUrl, type}: {imageUrl?: string | null; type: CardType}) =>
     imageUrl &&
     `
     background-image: url(${imageUrl});
     background-size: cover;
   `}
+  ${({type}: {type: CardType}) => type === 'party' && `cursor: default;`}
 `;
 
 export const CloseButton = styled.button`
@@ -38,5 +40,5 @@ export const CardText = styled.p`
   font-size: 24px;
   line-height: 28px;
   text-transform: uppercase;
-  margin-bottom: 14px;
+  margin-bottom: 28px;
 `;

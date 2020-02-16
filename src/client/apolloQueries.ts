@@ -30,7 +30,7 @@ export const GET_PARTY_STATE_QUERY = gql`
 `;
 
 export const UPDATE_PARTY_CHARACTER = gql`
-  mutation updatePartyCharacter($character: SetPerson) {
+  mutation updatePartyCharacter($character: Character) {
     updatePartyCharacter(character: $character) @client
   }
 `;

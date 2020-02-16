@@ -13,14 +13,14 @@ export const Party: React.FC<IProps> = () => {
   const morty = data?.party?.morty;
   return (
     <PartyWrapper>
-      <PartyTitle>{resources.title}</PartyTitle>
+      <PartyTitle data-testid="party-title">{resources.title}</PartyTitle>
       <CharactersContainer>
-        <CardWrapper type="left">
+        <CardWrapper data-testid="party-rick" type="left">
           <Card key={rick?.id} imageUrl={rick?.image} type="party">
             {resources.cardName.left}
           </Card>
         </CardWrapper>
-        <CardWrapper type="right">
+        <CardWrapper data-testid="party-morty" type="right">
           <Card key={morty?.id} imageUrl={morty?.image} type="party">
             {resources.cardName.right}
           </Card>

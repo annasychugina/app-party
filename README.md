@@ -1,3 +1,5 @@
+# app-party
+
 ## Install
 
 ```sh
@@ -12,7 +14,7 @@ $ yarn start # http://localhost:3000/
 
 ## Tests
 
-Use jest & @testing-library/react-hooks
+Use jest & @testing-library/react-hooks & @testing-library/react
 
 ```
 yarn test
@@ -23,4 +25,10 @@ yarn test
 ```
 yarn typecheck
 ```
-# app-party
+
+
+## Deploy
+
+```
+yarn deploy
+```

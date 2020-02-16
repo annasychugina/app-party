@@ -1,7 +1,7 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 export const PartyWrapper = styled.div`
-  max-width: 400px;
-  margin-top: 100px;
+  max-width: 380px;
+  margin-top: 90px;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -31,10 +31,10 @@ export const CardWrapper = styled.div`
   max-width: 200px;
   ${({type}: {type: 'left' | 'right'}) =>
     type === 'left'
-      ? css`
-          padding-right: 15px;
+      ? `
+          padding-right: 10px;
         `
-      : css`
-          padding-left: 15px;
+      : `
+          padding-left: 10px;
         `}
 `;

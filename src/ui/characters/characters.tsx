@@ -9,7 +9,6 @@ import {ICharacter} from '../../types/types';
 import {Column, ErrorText, Grid, WarningText} from './characters.styles';
 
 interface IProps {
-  isLoading?: boolean;
   searchTerm: string;
   debouncedSearchTerm: string;
   onChange: (value: string) => void;
@@ -33,7 +32,6 @@ export const Characters: React.FC<IProps> = ({debouncedSearchTerm, onRemoveChara
       },
     },
   });
-
   const [updatePartyCharacter] = useMutation(UPDATE_PARTY_CHARACTER);
   const characters = data?.characters?.results;
   const filteredCharacters = useMemo(
@@ -57,11 +55,11 @@ export const Characters: React.FC<IProps> = ({debouncedSearchTerm, onRemoveChara
   }
 
   if (error) {
-    return <ErrorText>{resources.errorText}</ErrorText>;
+    return <ErrorText data-testid="error-text">{resources.errorText}</ErrorText>;
   }
 
   if (!filteredCharacters || filteredCharacters.length === 0) {
-    return <WarningText>{resources.warningText}</WarningText>;
+    return <WarningText data-testid="warning-text">{resources.warningText}</WarningText>;
   }
 
   return (
