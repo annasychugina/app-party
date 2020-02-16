@@ -23,5 +23,14 @@ export const Input: React.FC<IProps> = ({onChange, value}) => {
     [onChange],
   );
 
-  return <InputWrapper data-testid="input" ref={inputRef} value={value} onChange={handleChange} />;
+  return (
+    <InputWrapper
+      spellCheck={false}
+      autoComplete="off"
+      data-testid="input"
+      ref={inputRef}
+      value={value}
+      onChange={handleChange}
+    />
+  );
 };
