@@ -16,12 +16,12 @@ export const Party: React.FC<IProps> = () => {
       <PartyTitle data-testid="party-title">{resources.title}</PartyTitle>
       <CharactersContainer>
         <CardWrapper data-testid="party-rick" type="left">
-          <Card key={rick?.id} imageUrl={rick?.image} type="party">
+          <Card imageUrl={rick?.image} type="party">
             {resources.cardName.left}
           </Card>
         </CardWrapper>
         <CardWrapper data-testid="party-morty" type="right">
-          <Card key={morty?.id} imageUrl={morty?.image} type="party">
+          <Card imageUrl={morty?.image} type="party">
             {resources.cardName.right}
           </Card>
         </CardWrapper>

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import closeImage from './icons/close.svg';
 import {CardType} from './card';
 
@@ -13,11 +13,15 @@ export const CardImage = styled.div`
   justify-content: center;
   ${({imageUrl, type}: {imageUrl?: string | null; type: CardType}) =>
     imageUrl &&
-    `
-    background-image: url(${imageUrl});
-    background-size: cover;
-  `}
-  ${({type}: {type: CardType}) => type === 'party' && `cursor: default;`}
+    css`
+      background-image: url(${imageUrl});
+      background-size: cover;
+    `}
+  ${({type}: {type: CardType}) =>
+    type === 'party' &&
+    css`
+      cursor: default;
+    `}
 `;
 
 export const CloseButton = styled.button`
