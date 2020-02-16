@@ -11,8 +11,6 @@ const Wrapper = styled.div`
   margin-top: 141px;
 `;
 
-const MIN_SYMBOLS_COUNT = 2;
-
 export const SearchPanel: React.FC<Props> = () => {
   const [removedIds, setRemoved] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -29,15 +27,13 @@ export const SearchPanel: React.FC<Props> = () => {
   return (
     <Wrapper>
       <Input onChange={handleChange} value={searchTerm} />
-      {debouncedSearchTerm && debouncedSearchTerm.length > MIN_SYMBOLS_COUNT && (
-        <Characters
-          removedCharacters={removedIds}
-          onRemoveCharacter={handleRemoveCharacter}
-          searchTerm={searchTerm}
-          onChange={handleChange}
-          debouncedSearchTerm={debouncedSearchTerm}
-        />
-      )}
+      <Characters
+        removedCharacters={removedIds}
+        onRemoveCharacter={handleRemoveCharacter}
+        searchTerm={searchTerm}
+        onChange={handleChange}
+        debouncedSearchTerm={debouncedSearchTerm}
+      />
     </Wrapper>
   );
 };

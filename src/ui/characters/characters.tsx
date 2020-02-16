@@ -1,12 +1,13 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useMemo, useEffect} from 'react';
 import {Preloader} from '../preloader/preloader';
 import {Card} from '../card/card';
-import {useMutation, useQuery} from '@apollo/react-hooks';
+import {useMutation, useLazyQuery} from '@apollo/react-hooks';
 import {GET_CHARACTERS_QUERY, UPDATE_PARTY_CHARACTER} from '../../client/apolloQueries';
 import resources from './config.json';
 import {QueryCharactersArgs} from '../../types/graphql';
 import {ICharacter} from '../../types/types';
 import {Column, ErrorText, Grid, WarningText} from './characters.styles';
+import {MIN_SYMBOLS_COUNT} from '../../constants';
 
 interface IProps {
   searchTerm: string;
@@ -25,19 +26,28 @@ export interface ICharactersQuery {
 }
 
 export const Characters: React.FC<IProps> = ({debouncedSearchTerm, onRemoveCharacter, removedCharacters}: IProps) => {
-  const {data, loading, error} = useQuery<ICharactersQuery, QueryCharactersArgs>(GET_CHARACTERS_QUERY, {
-    variables: {
-      filter: {
-        name: debouncedSearchTerm,
-      },
-    },
-  });
+  const [getCharacters, {loading, data, error}] = useLazyQuery<ICharactersQuery, QueryCharactersArgs>(
+    GET_CHARACTERS_QUERY,
+    {fetchPolicy: 'network-only'},
+  );
   const [updatePartyCharacter] = useMutation(UPDATE_PARTY_CHARACTER);
   const characters = data?.characters?.results;
   const filteredCharacters = useMemo(
     () => characters && characters.filter(({id}: ICharacter) => removedCharacters.indexOf(id) === -1),
     [characters, removedCharacters],
   );
+
+  useEffect(() => {
+    if (debouncedSearchTerm.length > MIN_SYMBOLS_COUNT) {
+      getCharacters({
+        variables: {
+          filter: {
+            name: debouncedSearchTerm,
+          },
+        },
+      });
+    }
+  }, [debouncedSearchTerm, getCharacters]);
 
   const handleClick = useCallback(
     (character: ICharacter) => {
@@ -58,7 +68,7 @@ export const Characters: React.FC<IProps> = ({debouncedSearchTerm, onRemoveChara
     return <ErrorText data-testid="error-text">{resources.errorText}</ErrorText>;
   }
 
-  if (!filteredCharacters || filteredCharacters.length === 0) {
+  if (debouncedSearchTerm.length > MIN_SYMBOLS_COUNT && (!filteredCharacters || filteredCharacters.length === 0)) {
     return <WarningText data-testid="warning-text">{resources.warningText}</WarningText>;
   }
 
